@@ -9,8 +9,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
 
     strategy:
       matrix:
@@ -26,3 +29,4 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - run: npm test:e2e
