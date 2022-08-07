@@ -29,3 +29,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
+    - name: Failure notify
+      if: ${{ failure() && !cancelled() }}
+      run: |
+        echo 'Failed to validate'
